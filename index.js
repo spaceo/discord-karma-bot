@@ -9,7 +9,7 @@ const API_KEY = process.env.API_KEY || '';
 let karmaStore = config.users.reduce((obj, item) => {
     return {
       ...obj,
-      [item]: 0,
+      [item]: 1,
     };
   }, {});
 

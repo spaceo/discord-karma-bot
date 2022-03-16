@@ -2,7 +2,7 @@
   "name": "karma-bot",
   "version": "1.0.0",
   "description": "A bot sprinkling karma",
-  "main": "bot.js",
+  "main": "index.js",
   "author": "Mikez",
   "dependencies": {
     "axios": "^0.26.1",
@@ -12,6 +12,6 @@
     "winston": "^3.6.0"
   },
   "scripts": {
-    "start": "node bot.js"
+    "start": "node index.js"
   }
 }

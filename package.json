@@ -1,0 +1,14 @@
+{
+  "name": "karma-bot",
+  "version": "1.0.0",
+  "description": "A bot sprinkling karma",
+  "main": "bot.js",
+  "author": "Mikez",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "winston": "^3.6.0"
+  }
+}

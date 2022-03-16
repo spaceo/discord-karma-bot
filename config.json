@@ -1,0 +1,14 @@
+{
+  "giphy": {
+    "url": "https://api.giphy.com/v1/gifs/search",
+    "searchTerm": "victory"
+  },
+  "users": [
+    "spaceo",
+    "Lasse Borly",
+    "Carsten",
+    "mikkelele",
+    "Matis1992"
+  ]
+}
+

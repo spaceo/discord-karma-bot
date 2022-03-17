@@ -58,8 +58,8 @@ client.on("messageCreate", function(message) {
     const karmaUsers = Object.keys(karmaStore);
     karmaUsers.forEach((user) => {
       messageData.push(`${user}: ${karmaStore[user]}`);
-      message.reply(messageData.join("\n"));
     });
+    message.reply(messageData.join("\n"));
   }
 
 });

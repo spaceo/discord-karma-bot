@@ -4,15 +4,22 @@ const config = require("./config.json");
 const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES"]});
 const prefix = "!";
 const BOT_TOKEN = process.env.BOT_TOKEN || '';
-const API_KEY = process.env.API_KEY || '';
+const GIPHY_API_KEY = process.env.GIPHY_API_KEY || '';
+const USERS_JSON = process.env.USERS_JSON || '';
 
-let karmaStore = config.users.reduce((obj, item) => {
-    return {
-      ...obj,
-      [item]: 1,
-    };
-  }, {});
+const envCheck = (envName, config) => {
+  if (!process.env[envName]) {
+    throw `${envName} env variable is missing!`;
+  };
+};
 
+[
+  'BOT_TOKEN',
+  'GIPHY_API_KEY',
+  'USERS_JSON'
+].map((envName) => envCheck(envName));
+
+let karmaStore = JSON.parse(USERS_JSON);
 const constructGiphyUrl = ({ url, apiKey, searchTerm }) =>
   `${url}?api_key=${apiKey}&q=${searchTerm}`;
 
@@ -22,15 +29,15 @@ client.on("messageCreate", function(message) {
   const commandBody = message.content.slice(prefix.length);
   const args = commandBody.split(' ');
   const command = args.shift().toLowerCase();
+  const messageData = [];
 
   if (command === "karma") {
-    const messageData = [];
     message.mentions.users.map((user) => {
-      const karma = karmaStore[user.username]++;
+      const karma = ++karmaStore[user.username];
       messageData.push(`Yay! ${user} har nu: ${karma} point`);
     });
 
-    axios.get(constructGiphyUrl({...config.giphy, apiKey: API_KEY}))
+    axios.get(constructGiphyUrl({...config.giphy, apiKey: GIPHY_API_KEY}))
     .then(function (response) {
       const { data: { data } } = response;
 
@@ -43,6 +50,14 @@ client.on("messageCreate", function(message) {
       console.log(error);
     })
     .then(function (){
+      message.reply(messageData.join("\n"));
+    });
+  }
+
+  if (command === "karma-status") {
+    const karmaUsers = Object.keys(karmaStore);
+    karmaUsers.forEach((user) => {
+      messageData.push(`${user}: ${karmaStore[user]}`);
       message.reply(messageData.join("\n"));
     });
   }
